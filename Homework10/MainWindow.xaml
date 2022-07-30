@@ -1,0 +1,96 @@
+﻿<Window x:Class="Homework10.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Homework10"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" MinHeight="170" MinWidth="430">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="ListUsers"
+                 Grid.Column="0"
+                 Margin="5"
+                 Padding="10"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding FirstName}" FontSize="15" ></TextBlock>
+                        <TextBlock Text="{Binding LastName}" FontSize="15" ></TextBlock>
+                        <TextBlock Text="{Binding Id}" FontSize="10" Foreground="Gray"></TextBlock>
+                        <TextBlock Text="{Binding Text}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       x:Name="TargetSend"
+                       Margin="5"
+                       Text="{Binding ElementName=ListUsers, Path=SelectedItem.Id}" FontSize="15" FontWeight="Bold"/>
+            <ListBox Grid.Row="1"
+                     x:Name="MessageList"
+                     Margin="5"
+                     ItemsSource="{Binding ElementName=ListUsers, Path=SelectedItem.UserMessagesList}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding DateTime}"></TextBlock>
+                            <TextBlock Text="{Binding Text}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <TextBox Grid.Row="2"
+                     x:Name="txtMsgSend"
+                     Margin="5"/>
+            <Button Grid.Row="3"
+                    x:Name="btnMsgSend"
+                    Margin="5"
+                    Width="100"
+                    Height="20"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Content="Отправить" Click="btnMsgSend_Click"/>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1">
+                <Button x:Name="SaveMessages"
+                        Margin="5,5,0,5"
+                        Width="100"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        Content="Сохранить лог" Click="SaveMessages_Click"/>
+                <Button x:Name="ShowFileList"
+                        Margin="5"
+                        Content="Список файлов"
+                        Width="100"
+                        Height="20"
+                        HorizontalAlignment="Left" Click="ShowFileList_Click"/>
+                <Button x:Name="ExitProgram"
+                        Margin="5"
+                        Content="Выход"
+                        Width="100"
+                        Height="20"
+                        HorizontalAlignment="Left" Click="ExitProgram_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
